@@ -16,7 +16,7 @@ const App = () => {
     const [noteId, setNoteId] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:5000/notes")
+        fetch("https://noteskeeperapp.herokuapp.com//notes")
             .then((res) => res.json())
             .then(
                 (result) => {
@@ -33,7 +33,7 @@ const App = () => {
     // for adding notes to notesArr
     const addNote = (titleText, contentText) => {
         if (contentText && titleText) {
-            fetch("http://localhost:5000/notes", {
+            fetch("https://noteskeeperapp.herokuapp.com//notes", {
                 method: "post",
                 body: "title=" + titleText + "&content=" + contentText,
                 headers: {
@@ -66,13 +66,13 @@ const App = () => {
 
     // for deleting notes from notesArr
     const deleteNote = (id) => {
-        fetch(`http://localhost:5000/note/${id}`, {
+        fetch(`https://noteskeeperapp.herokuapp.com//note/${id}`, {
             method: "delete",
         })
             .then((res) => res.json())
             .then(
                 (result) => {
-                    fetch("http://localhost:5000/notes")
+                    fetch("https://noteskeeperapp.herokuapp.com//notes")
                         .then((res) => res.json())
                         .then(
                             (result) => {
@@ -92,7 +92,7 @@ const App = () => {
     };
 
     const searchFor = (searchTerm) => {
-        fetch(`http://localhost:5000/notes/${searchTerm}`)
+        fetch(`https://noteskeeperapp.herokuapp.com//notes/${searchTerm}`)
             .then((res) => res.json())
             .then(
                 (result) => {
@@ -109,7 +109,7 @@ const App = () => {
     const showEditDiv = (id) => {
         setNoteClicked(true);
 
-        fetch(`http://localhost:5000/note/${id}`)
+        fetch(`https://noteskeeperapp.herokuapp.com//note/${id}`)
             .then((res) => res.json())
             .then(
                 (result) => {
@@ -127,7 +127,7 @@ const App = () => {
 
     const saveEdit = (noteIdToEdit) => {
         if (noteIdToEdit) {
-            fetch(`http://localhost:5000/note/${noteIdToEdit}`, {
+            fetch(`https://noteskeeperapp.herokuapp.com//note/${noteIdToEdit}`, {
                 method: "post",
                 body: "title=" + title + "&content=" + content,
                 headers: {
@@ -139,7 +139,7 @@ const App = () => {
                     (result) => {
                         setNoteClicked(false);
 
-                        fetch("http://localhost:5000/notes")
+                        fetch("https://noteskeeperapp.herokuapp.com//notes")
                             .then((res) => res.json())
                             .then(
                                 (result) => {
