@@ -16,24 +16,24 @@ const App = () => {
     const [noteId, setNoteId] = useState("");
 
     useEffect(() => {
-        fetch("https://noteskeeperapp.herokuapp.com//notes")
-            .then((res) => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setNotesArr(result);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            );
+    fetch("https://noteskeeperapp.herokuapp.com/notes")
+        .then((res) => res.json())
+        .then(
+            (result) => {
+                setIsLoaded(true);
+                setNotesArr(result);
+            },
+            (error) => {
+                setIsLoaded(true);
+                setError(error);
+            }
+        );
     }, []);
 
     // for adding notes to notesArr
     const addNote = (titleText, contentText) => {
         if (contentText && titleText) {
-            fetch("https://noteskeeperapp.herokuapp.com//notes", {
+            fetch("https://noteskeeperapp.herokuapp.com/notes", {
                 method: "post",
                 body: "title=" + titleText + "&content=" + contentText,
                 headers: {
@@ -66,13 +66,13 @@ const App = () => {
 
     // for deleting notes from notesArr
     const deleteNote = (id) => {
-        fetch(`https://noteskeeperapp.herokuapp.com//note/${id}`, {
+        fetch(`https://noteskeeperapp.herokuapp.com/note/${id}`, {
             method: "delete",
         })
             .then((res) => res.json())
             .then(
                 (result) => {
-                    fetch("https://noteskeeperapp.herokuapp.com//notes")
+                    fetch("https://noteskeeperapp.herokuapp.com/notes")
                         .then((res) => res.json())
                         .then(
                             (result) => {
@@ -92,7 +92,7 @@ const App = () => {
     };
 
     const searchFor = (searchTerm) => {
-        fetch(`https://noteskeeperapp.herokuapp.com//notes/${searchTerm}`)
+        fetch(`https://noteskeeperapp.herokuapp.com/notes/${searchTerm}`)
             .then((res) => res.json())
             .then(
                 (result) => {
@@ -109,7 +109,7 @@ const App = () => {
     const showEditDiv = (id) => {
         setNoteClicked(true);
 
-        fetch(`https://noteskeeperapp.herokuapp.com//note/${id}`)
+        fetch(`https://noteskeeperapp.herokuapp.com/note/${id}`)
             .then((res) => res.json())
             .then(
                 (result) => {
@@ -127,19 +127,22 @@ const App = () => {
 
     const saveEdit = (noteIdToEdit) => {
         if (noteIdToEdit) {
-            fetch(`https://noteskeeperapp.herokuapp.com//note/${noteIdToEdit}`, {
-                method: "post",
-                body: "title=" + title + "&content=" + content,
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded",
-                },
-            })
+            fetch(
+                `https://noteskeeperapp.herokuapp.com/note/${noteIdToEdit}`,
+                {
+                    method: "post",
+                    body: "title=" + title + "&content=" + content,
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded",
+                    },
+                }
+            )
                 .then((res) => res.json())
                 .then(
                     (result) => {
                         setNoteClicked(false);
 
-                        fetch("https://noteskeeperapp.herokuapp.com//notes")
+                        fetch("https://noteskeeperapp.herokuapp.com/notes")
                             .then((res) => res.json())
                             .then(
                                 (result) => {
