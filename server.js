@@ -15,7 +15,7 @@ app.use(express.static("build"));
 
 // database setup
 mongoose.connect(
-    "mongodb://localhost:27017/keeperDB",
+    process.env.MONGO_URI,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
