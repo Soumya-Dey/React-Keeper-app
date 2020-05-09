@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-const uuid = require("uuid");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,7 +28,6 @@ mongoose.connect(
 
 // database schema
 const noteSchema = mongoose.Schema({
-    key: String,
     title: String,
     content: String,
 });
@@ -59,7 +57,6 @@ app.route("/notes")
     .post((req, res) => {
         if (req.body.title && req.body.content) {
             const newNote = Note({
-                key: uuid.v4(),
                 title: req.body.title,
                 content: req.body.content,
             });
